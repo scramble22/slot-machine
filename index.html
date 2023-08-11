@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slot Machine</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="slot-machine">
+        <div class="slots">
+          <img class="slot-img hidden" src="" alt="Slot 1" />
+          <img class="slot-img hidden" src="" alt="Slot 2" />
+          <img class="slot-img hidden" src="" alt="Slot 3" />
+        </div>
+        <div class="controls">
+          <input type="number" class="bet-input" min="5" max="112" step="5" value="5">
+          <button class="spin-button">Spin</button>
+          <div class="balance">
+            <span class="balance-label">Balance:</span>
+            <span class="balance-value">1000</span>
+          </div>
+          <div class="prize">
+            <img src="" alt="Prize Image" />
+            <h2></h2> <h2 class="digit">0</h2>
+            <button class="modal-ok-button">OK</button>
+          </div>
+        </div>
+      </div>
+      <div class="user-photo">
+        <a href="prof.html">
+          <img src="user-photo.jpeg" alt="User Photo">
+        </a>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
