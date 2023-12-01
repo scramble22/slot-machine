@@ -76,6 +76,42 @@ depositModalBtn.addEventListener('click', () => {
 });
 
 
+//секрет
+const secretDepositButton = document.querySelector('.secret-deposit-button');
+
+function placeSecretButton() {
+  const maxX = window.innerWidth - 50;
+  const maxY = window.innerHeight - 50;
+
+  const randomX = Math.floor(Math.random() * maxX);
+  const randomY = Math.floor(Math.random() * maxY);
+
+  secretDepositButton.style.left = `${randomX}px`;
+  secretDepositButton.style.top = `${randomY}px`;
+  secretDepositButton.style.display = 'block';
+}
+
+placeSecretButton();
+
+secretDepositButton.addEventListener('click', () => {
+  const depositAmount = parseInt(prompt('Enter deposit amount:'));
+  if (!isNaN(depositAmount) && depositAmount > 0) {
+    balance += depositAmount;
+    balanceValue.textContent = balance;
+    updateBalanceLocalStorage();
+    profileBalance.textContent = balance;
+
+    // Добавление записи в историю
+    addToHistory(`Deposited: +${depositAmount}`, 'green');
+  } else {
+    alert('Please enter a valid deposit amount.');
+  }
+});
+
+// Перемещение секретной кнопки при изменении размера окна
+window.addEventListener('resize', placeSecretButton);
+
+
 
 // Добавьте следующий код, чтобы закрыть профиль, если кликнуто вне модального окна
 window.addEventListener('click', (event) => {
@@ -134,6 +170,7 @@ function spin() {
         
       profileWins.textContent = parseInt(profileWins.textContent) + 1;
       setLocalStorageItem('wins', profileWins.textContent);
+      addToHistory(`Won: +${prizeAmount}`, 'green');
 
       const prizeAmount = Math.round(Math.random() * ((betAmount * 50) - betAmount)) + betAmount;
       balance += prizeAmount;
@@ -179,10 +216,12 @@ function spin() {
       setLocalStorageItem('wins', profileWins.textContent);
       
       balance += Math.ceil(betAmount / 2);
+      addToHistory(`Won: +${Math.ceil(betAmount / 2)}`, 'green');
       // Сохранение баланса в localStorage при изменении
       balanceValue.textContent = balance;
       updateBalanceLocalStorage();
     } else {
+      addToHistory(`Lost: -${betAmount}`, 'red');
       profileLosses.textContent = parseInt(profileLosses.textContent) + 1;
       setLocalStorageItem('losses', profileLosses.textContent);
       balance -= betAmount;
@@ -194,6 +233,19 @@ function spin() {
     spinButton.disabled = false;
   }, 3000);
 
+}
+
+function addToHistory(entry, color) {
+  // Обновление истории в DOM
+  const listItem = document.createElement('li');
+  listItem.textContent = entry;
+  listItem.style.color = color;
+  historyList.appendChild(listItem);
+
+  // Обновление истории в localStorage
+  const history = JSON.parse(localStorage.getItem('history')) || [];
+  history.push(entry);
+  localStorage.setItem('history', JSON.stringify(history));
 }
 
 // Функция для установки значения в localStorage
