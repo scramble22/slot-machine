@@ -1,5 +1,5 @@
 const images = ['image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg', 'image5.jpg'];
-let balance = 1000;
+let balance = parseInt(localStorage.getItem('balance')) || 1000; // Загрузка баланса из localStorage
 let betAmount = parseInt(document.querySelector('.bet-input').value);
 const slotContainer = document.querySelector(".slots");
 const slotImgs = Array.from(slotContainer.querySelectorAll("img"));
@@ -13,6 +13,78 @@ const betInput = document.querySelector(".bet-input");
 const depositButton = document.querySelector(".deposit-button");
 const depositInput = document.querySelector(".deposit-input");
 const digit = document.querySelector('.digit');
+
+// Update balance display
+balanceValue.textContent = balance;
+
+//история
+const historyButton = document.querySelector('.history-button');
+const historyModal = document.querySelector('.history-modal');
+const closeHistoryBtn = document.querySelector('.close-history');
+const historyList = document.querySelector('.history-list');
+
+historyButton.addEventListener('click', () => {
+  historyList.innerHTML = '';
+  const history = JSON.parse(localStorage.getItem('history')) || [];
+  history.forEach((entry) => {
+    const listItem = document.createElement('li');
+    listItem.textContent = entry;
+    historyList.appendChild(listItem);
+  });
+  historyModal.style.display = 'block';
+});
+
+closeHistoryBtn.addEventListener('click', () => {
+  historyModal.style.display = 'none';
+});
+
+//история
+
+
+//профиль
+const profileLink = document.querySelector('.profile-link');
+const profileModal = document.querySelector('.profile-modal');
+const closeProfileBtn = document.querySelector('.close-profile');
+const depositModalBtn = document.querySelector('.deposit-button');
+const profileBalance = document.querySelector('.profile-balance');
+const profileWins = document.querySelector('.profile-wins');
+const profileLosses = document.querySelector('.profile-losses');
+
+profileLink.addEventListener('click', (event) => {
+  event.preventDefault();
+  profileBalance.textContent = balance;
+  profileWins.textContent = localStorage.getItem('wins') || '0';
+  profileLosses.textContent = localStorage.getItem('losses') || '0';
+  profileModal.style.display = 'block';
+});
+
+closeProfileBtn.addEventListener('click', () => {
+  profileModal.style.display = 'none';
+});
+
+depositModalBtn.addEventListener('click', () => {
+  const depositAmount = parseInt(document.querySelector('.deposit-input').value);
+  if (!isNaN(depositAmount) && depositAmount > 0) {
+    balance += depositAmount;
+    balanceValue.textContent = balance;
+    updateBalanceLocalStorage();
+    profileBalance.textContent = balance;
+    document.querySelector('.deposit-input').value = '';
+  } else {
+    alert('впиши правильна всё пж');
+  }
+});
+
+
+
+// Добавьте следующий код, чтобы закрыть профиль, если кликнуто вне модального окна
+window.addEventListener('click', (event) => {
+  if (event.target === profileModal) {
+    profileModal.style.display = 'none';
+  }
+});
+
+//профиль
 
 function getRandomImage() {
   const randomIndex = Math.round(Math.random() * (images.length - 1));
@@ -58,7 +130,11 @@ function spin() {
     clearInterval(spinInterval);
 
     const uniqueImgs = new Set(slotImgs.map((img) => img.src));
-    if (uniqueImgs.size === 1) {
+    if (uniqueImgs.size === 1) {// Обновление статистики в localStorage
+        
+      profileWins.textContent = parseInt(profileWins.textContent) + 1;
+      setLocalStorageItem('wins', profileWins.textContent);
+
       const prizeAmount = Math.round(Math.random() * ((betAmount * 50) - betAmount)) + betAmount;
       balance += prizeAmount;
       if (digit.innerText < 100) {
@@ -86,7 +162,9 @@ function spin() {
       flipNumber(prizeAmount)
       prizeImg.src = uniqueImgs.values().next().value;
       prizeModal.style.display = "block";
+      // Сохранение баланса в localStorage при изменении
       balanceValue.textContent = balance;
+      updateBalanceLocalStorage();
 
       // Hide slot images
       setTimeout(() => {
@@ -96,15 +174,36 @@ function spin() {
       }, 1000);
     } else if (uniqueImgs.size === 2) {
       // Two identical images, player wins half the bet back
+      // Обновление статистики в localStorage
+      profileWins.textContent = parseInt(profileWins.textContent) + 1;
+      setLocalStorageItem('wins', profileWins.textContent);
+      
       balance += Math.ceil(betAmount / 2);
+      // Сохранение баланса в localStorage при изменении
       balanceValue.textContent = balance;
+      updateBalanceLocalStorage();
     } else {
+      profileLosses.textContent = parseInt(profileLosses.textContent) + 1;
+      setLocalStorageItem('losses', profileLosses.textContent);
       balance -= betAmount;
+      // Сохранение баланса в localStorage при изменении
       balanceValue.textContent = balance;
+      updateBalanceLocalStorage();
     }
 
     spinButton.disabled = false;
   }, 3000);
+
+}
+
+// Функция для установки значения в localStorage
+function setLocalStorageItem(name, value) {
+  localStorage.setItem(name, value);
+}
+
+// Обновление значения баланса в localStorage
+function updateBalanceLocalStorage() {
+  setLocalStorageItem('balance', balance.toString());
 }
 
 prizeModal.addEventListener("click", () => {
@@ -121,17 +220,7 @@ betInput.addEventListener("change", (event) => {
 
 //deposit
 
-depositButton.addEventListener("click", (event) => {
-  event.preventDefault();
-  const depositAmount = parseInt(depositInput.value);
-  if (isNaN(depositAmount) || depositAmount <= 0) {
-    alert("Please enter a valid deposit amount.");
-    return;
-  }
-  balance += depositAmount;
-  balanceValue.textContent = balance;
-  depositInput.value = "0";
-});
+
 
 // nav
 

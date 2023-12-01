@@ -259,3 +259,128 @@
     font-size: 24px;
   }
 }
+
+.deposit-input {
+  width: 70px;
+  height: 40px;
+  font-size: 20px;
+  text-align: center;
+  color: #333;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  outline: none;
+}
+
+.deposit-button {
+  height: 45px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #09f;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.deposit-button:hover {
+  background-color: #06c;
+}
+
+.secret-options {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.secret-options:hover {
+  opacity: 1;
+}
+
+.user-options {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.profile-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: none;
+}
+
+.profile-modal h2 {
+  margin-bottom: 10px;
+}
+
+.profile-modal p {
+  margin-bottom: 10px;
+}
+
+.profile-modal input {
+  width: 150px;
+  height: 30px;
+  margin-bottom: 10px;
+}
+
+.profile-modal button {
+  padding: 10px;
+  border: none;
+  background-color: #3498db;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.close-profile {
+  background-color: #e74c3c;
+}
+
+.history-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: none;
+}
+
+.history-modal h2 {
+  margin-bottom: 10px;
+}
+
+.history-modal ul {
+  list-style: none;
+  padding: 0;
+}
+
+.history-modal li {
+  margin-bottom: 5px;
+}
+
+.close-history {
+  padding: 10px;
+  border: none;
+  background-color: #e74c3c;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+

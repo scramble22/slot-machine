@@ -8,6 +8,26 @@
   </head>
   <body>
     <div class="container">
+      <div class="user-options">
+        <a href="#" class="profile-link">Profile</a>
+      </div>
+
+      <div class="profile-modal">
+        <h2>Profile</h2>
+        <p>Balance: <span class="profile-balance">1000</span></p>
+        <p>Wins: <span class="profile-wins">0</span></p>
+        <p>Losses: <span class="profile-losses">0</span></p>
+        <input type="number" class="deposit-input" placeholder="Enter deposit amount" />
+        <button class="deposit-button">Deposit</button>
+        <button class="close-profile">Close</button>
+        <button class="history-button">История изменений</button>
+        <div class="history-modal">
+          <h2>История изменений</h2>
+          <ul class="history-list"></ul>
+          <button class="close-history">Закрыть</button>
+        </div>
+
+      </div>
       <div class="slot-machine">
         <div class="slots">
           <img class="slot-img hidden" src="" alt="Slot 1" />
@@ -27,11 +47,6 @@
             <button class="modal-ok-button">OK</button>
           </div>
         </div>
-      </div>
-      <div class="user-photo">
-        <a href="prof.html">
-          <img src="user-photo.jpeg" alt="User Photo">
-        </a>
       </div>
     </div>
 
