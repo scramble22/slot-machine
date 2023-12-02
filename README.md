@@ -1,4 +1,4 @@
-### README.md (Russian)
+### README.md (Russian) for v 2.3.0
 
 # Игровой автомат
 
@@ -13,6 +13,7 @@
 - **Ставки:** Устанавливайте сумму ставки перед вращением барабанов.
 - **Выигрышные комбинации:** Почувствуйте волнение от выигрыша с различными комбинациями изображений.
 - **Баланс:** Следите за вашим игровым балансом.
+- **Профиль** Вы можете посмотреть историю своих игр, количество выигрышей и проигрышей
 
 ## Как играть
 
@@ -25,7 +26,6 @@
 
 - **Кнопка депозита:** Добавляйте дополнительные средства на ваш баланс, используя секретную кнопку депозита.
 - **История:** Просматривайте историю ваших игр, включая выигрыши, проигрыши и депозиты.
-- **Автоспин:** Включите автоспин, чтобы позволить машине вращаться до тех пор, пока вы не выиграете.
 
 ## Установка
 
@@ -52,6 +52,7 @@ Welcome to the slot machine game! This is a simple slot machine simulator create
 - **Betting:** Set the bet amount before spinning the reels.
 - **Winning Combinations:** Experience the thrill of winning with different combinations of images.
 - **Balance:** Keep track of your game balance.
+- **Profile** You can see your game history, number of wins and losses
 
 ## How to Play
 
@@ -64,7 +65,6 @@ Welcome to the slot machine game! This is a simple slot machine simulator create
 
 - **Secret Deposit Button:** Add extra funds to your balance using the secret deposit button.
 - **History:** View the history of your games, including wins, losses, and deposits.
-- **Auto Spin:** Enable auto spin to allow the machine to spin until you win.
 
 ## Installation
 
