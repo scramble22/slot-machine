@@ -36,7 +36,7 @@
 Если вы хотите внести свой вклад в этот проект или у вас есть предложения по улучшению, не стесняйтесь создавать issue или отправлять pull request.
 
 # Лицензия
-Этот проект лицензирован по лицензии [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)https://www.apache.org/licenses/LICENSE-2.0.
+Этот проект лицензирован по лицензии [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
 Наслаждайтесь игрой!
 
@@ -76,6 +76,6 @@ Welcome to the slot machine game! This is a simple slot machine simulator create
 If you want to contribute to this project or have suggestions for improvement, feel free to create an issue or submit a pull request.
 
 ## License
-This project is licensed under the [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)https://www.apache.org/licenses/LICENSE-2.0.
+This project is licensed under the [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
 Enjoy the game!
