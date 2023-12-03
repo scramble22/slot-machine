@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slot Machine</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <div class="secret-deposit-button"></div>
+    <div class="huinya"><input type="number" class="deposit-input" placeholder="Enter deposit amount" />
+        <button class="deposit-button">Deposit</button></div>
+    <div class="container">
+      <div class="user-options">
+        <a href="#" class="profile-link">Profile</a>
+      </div>
+
+      <div class="profile-modal">
+        <h2>Profile</h2>
+        <p>Balance: <span class="profile-balance">1000</span></p>
+        <p>Wins: <span class="profile-wins">0</span></p>
+        <p>Losses: <span class="profile-losses">0</span></p>
+        <button class="close-profile">Close</button>
+        <button class="history-button">История изменений</button>
+        <div class="history-modal">
+          <h2>История изменений</h2>
+          <ul class="history-list"></ul>
+          <button class="close-history">Закрыть</button>
+        </div>
+
+      </div>
+      <div class="slot-machine">
+        <div class="slots">
+          <img class="slot-img hidden" src="" alt="Slot 1" />
+          <img class="slot-img hidden" src="" alt="Slot 2" />
+          <img class="slot-img hidden" src="" alt="Slot 3" />
+          <img class="slot-img hidden" src="" alt="Slot 4" />
+          <img class="slot-img hidden" src="" alt="Slot 5" />
+
+          <img class="slot-img hidden" src="" alt="Slot 6" />
+          <img class="slot-img hidden" src="" alt="Slot 7" />
+          <img class="slot-img hidden" src="" alt="Slot 8" />
+          <img class="slot-img hidden" src="" alt="Slot 9" />
+          <img class="slot-img hidden" src="" alt="Slot 10" />
+
+          <img class="slot-img hidden" src="" alt="Slot 11" />
+          <img class="slot-img hidden" src="" alt="Slot 12" />
+          <img class="slot-img hidden" src="" alt="Slot 13" />
+          <img class="slot-img hidden" src="" alt="Slot 14" />
+          <img class="slot-img hidden" src="" alt="Slot 15" />
+        </div>
+        <div class="notification"></div>
+        <div class="controls">
+          <input type="number" class="bet-input" min="5" max="" step="10" value="500">
+          <button class="spin-button">Spin</button>
+          <div class="balance">
+            <span class="balance-label">Balance:</span>
+            <span class="balance-value">1000</span>
+          </div>
+          <div class="prize">
+            <img src="" alt="Prize Image" />
+            <h2></h2> <h2 class="digit">0</h2>
+            <button class="modal-ok-button">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>

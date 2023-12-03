@@ -1,0 +1,475 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost&family=Nabla&display=swap');
+
+/* Общие стили для body и контейнера */
+body {
+  font-family: 'Jost', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* Стили для слот-машины */
+.slot-machine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+  background-color: #ffffff;
+  padding: 30px;
+}
+
+/* Стили для слотов */
+.slots {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  justify-content: center;
+}
+
+.slot-img {
+  width: 80px;
+  height: 80px;
+  margin-right: 5px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Стили для контролов */
+.controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.bet-input {
+  width: 70px;
+  height: 40px;
+  font-size: 20px;
+  text-align: center;
+  color: #333;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  outline: none;
+  margin-right: 10px;
+}
+
+.spin-button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #16a085;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+}
+
+.spin-button:disabled {
+  background-color: #c0c0c0;
+  cursor: not-allowed;
+  animation: none;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0px 0px 0px 0px rgba(22, 160, 133, 0.7);
+  }
+  70% {
+    box-shadow: 0px 0px 0px 10px rgba(22, 160, 133, 0);
+  }
+  100% {
+    box-shadow: 0px 0px 0px 0px rgba(22, 160, 133, 0);
+  }
+}
+
+.balance {
+  display: flex;
+  align-items: center;
+}
+
+.balance-label {
+  font-size: 16px; /* уменьшен размер для мобильных устройств */
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.balance-value {
+  font-size: 16px; /* уменьшен размер для мобильных устройств */
+  font-weight: bold;
+}
+
+/* Стили для призов */
+.prize {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+  animation: scale .5s cubic-bezier(.36,.07,.19,.97) forwards;
+}
+
+.prize h2 {
+  font-family: 'Nabla', cursive;
+  font-size: 24px; /* увеличен размер для мобильных устройств */
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.prize img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+}
+
+.prize button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #16a085;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+@keyframes scale {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  100%{
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Стили для инпута депозита */
+
+.deposit {
+  display: flex;
+  flex-direction: column; /* изменен flex-направление для мобильных устройств */
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.deposit-input {
+  width: 70px;
+  height: 40px;
+  font-size: 20px;
+  text-align: center;
+  color: #333;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  outline: none;
+}
+
+.deposit-button {
+  height: 45px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #09f;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.deposit-button:hover {
+  background-color: #06c;
+}
+
+/* Профиль пользователя */
+.user-photo {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+
+  width: 40px; /* уменьшен размер для мобильных устройств */
+  height: 40px; /* уменьшен размер для мобильных устройств */
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 14px;
+}
+
+.user-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Media queries */
+@media screen and (min-width: 768px) { /* поддержка планшетов и выше */
+  .container {
+    padding: 0;
+  }
+
+  .slot-img {
+    width: 150px;
+    height: 150px;
+    margin-right: 50px;
+  }
+
+  .controls {
+    flex-direction: row;
+  }
+
+  .balance-label {
+    font-size: 20px;
+  }
+
+  .balance-value {
+    font-size: 20px;
+  }
+
+  .prize h2 {
+    font-size: 36px;
+  }
+
+  .prize img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .spin-button {
+    font-size: 24px;
+    margin-right: 20px;
+  }
+
+  .prize button {
+    font-size: 24px;
+  }
+}
+
+.deposit-input {
+  width: 70px;
+  height: 40px;
+  font-size: 20px;
+  text-align: center;
+  color: #333;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  outline: none;
+}
+
+.deposit-button {
+  height: 45px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #09f;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.deposit-button:hover {
+  background-color: #06c;
+}
+
+.secret-deposit-button {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  cursor: pointer;
+  display: none;
+}
+
+.secret-deposit-button:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.huinya {
+  display: none;
+}
+
+.user-options {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.profile-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: none;
+}
+
+.profile-modal h2 {
+  margin-bottom: 10px;
+}
+
+.profile-modal p {
+  margin-bottom: 10px;
+}
+
+.profile-modal input {
+  width: 150px;
+  height: 30px;
+  margin-bottom: 10px;
+}
+
+.profile-modal button {
+  padding: 10px;
+  border: none;
+  background-color: #3498db;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.close-profile {
+  background-color: #e74c3c;
+}
+
+.history-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: none;
+}
+
+.history-modal h2 {
+  margin-bottom: 10px;
+}
+
+.history-modal ul {
+  list-style: none;
+  padding: 0;
+}
+
+.history-modal li {
+  margin-bottom: 5px;
+}
+
+.close-history {
+  padding: 10px;
+  border: none;
+  background-color: #e74c3c;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.winning {
+  border: 2px solid gold;
+  box-shadow: 0 0 10px gold; /* Добавляем бокс-шадоу */
+  transition: box-shadow 0.5s ease-in-out; /* Анимация изменения бокс-шадоу в течение 0.5 секунды */
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.winning-blink {
+  animation: blink 1s infinite; /* Мигание с использованием CSS-анимации */
+}
+
+.notification {
+  /* Ваши текущие стили */
+
+  /* Добавленные стили для анимации исчезновения */
+  transition: opacity 1s ease-in-out;
+  opacity: 0;
+}
+
+.notification.show {
+  opacity: 1;
+}
+
+/* Стили для чекбокса и его контейнера */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.checkbox-label {
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.checkbox-input {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #3498db;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.checkbox-input:checked {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+/* Стили для флажка */
+.checkbox-check {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: none;
+}
+
+.checkbox-input:checked + .checkbox-check {
+  display: block;
+}
