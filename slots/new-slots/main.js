@@ -94,7 +94,7 @@ function calculateOutcome(uniqueImgs) {
 function calculatePrizeAmount(combination) {
   const combinationKey = getCombinationKey(combination);
   const multiplier = multipliers[combinationKey] || 1; // Используем множитель или значение по умолчанию
-  return multiplier * betAmount;
+  return multiplier * (betAmount || 1); // Умножаем на размер ставки, учитывая случай, когда betAmount неопределен или равен нулю
 }
 
 function getCombinationKey(combination) {
