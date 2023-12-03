@@ -183,6 +183,9 @@ function spinHandler() {
     return;
   }
 
+  // Сохраните текущую ставку в localStorage
+  localStorage.setItem('lastBetAmount', betAmount);
+
   // Вычтем средства перед спином
   balance -= betAmount;
   // Обновим отображение баланса
@@ -213,7 +216,6 @@ function spinHandler() {
 
   }, 3000);
 }
-
 
 // Add click handler for the Spin button
 spinButton.addEventListener("click", spinHandler);
@@ -251,3 +253,49 @@ document.addEventListener('keypress', (event) => {
   }
 });
 
+const themeSelect = document.getElementById("theme-select");
+themeSelect.addEventListener("change", changeTheme);
+
+function changeTheme() {
+  const selectedTheme = themeSelect.value;
+  updateSlotImages(selectedTheme);
+  // Сохраните текущую тему в localStorage
+  localStorage.setItem('selectedTheme', selectedTheme);
+}
+
+function updateSlotImages(theme) {
+  // Здесь вам нужно определить новые изображения для выбранной темы
+  // Например, создайте объект с изображениями для каждой темы
+  const themes = {
+    theme1: ['image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg', 'image5.jpg'],
+    theme2: ['image1_2.jpg', 'image2_2.jpg', 'image3_2.jpg', 'image4_2.jpg', 'image5_2.jpg'],
+    // Добавьте дополнительные темы и их изображения по мере необходимости
+  };
+
+  // Обновите массив изображений в соответствии с выбранной темой
+  images.length = 0;
+  images.push(...themes[theme]);
+
+  // Обновите изображения на странице, если они уже отображаются
+  for (let i = 0; i < slotImgs.length; i++) {
+    slotImgs[i].src = getRandomImage();
+  }
+}
+
+// Восстановление темы из localStorage при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('selectedTheme');
+  if (savedTheme) {
+    themeSelect.value = savedTheme;
+    updateSlotImages(savedTheme);
+  }
+});
+
+// Восстановление последней ставки из localStorage при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+  const savedLastBetAmount = localStorage.getItem('lastBetAmount');
+  if (savedLastBetAmount) {
+    betInput.value = savedLastBetAmount;
+    betAmount = parseInt(savedLastBetAmount);
+  }
+});
