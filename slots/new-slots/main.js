@@ -7,7 +7,7 @@ const spinButton = document.querySelector(".spin-button");
 const balanceValue = document.querySelector(".balance-value");
 const betInput = document.querySelector(".bet-input");
 const digit = document.querySelector('.digit');
-const historyList = document.querySelector('.history-list');
+const historyList = document.querySelector('.history-list');  
 const secretDepositButton = document.querySelector('.secret-deposit-button');
 const notification = document.querySelector('.notification');
 
@@ -15,6 +15,24 @@ const notification = document.querySelector('.notification');
 balanceValue.textContent = balance;
 
 const winCombinations = [
+  [0, 1, 2, 3, 4],
+  [5, 6, 7, 8, 9],
+  [10, 11, 12, 13, 14],
+  [0, 1, 2, 3],
+  [1, 2, 3, 4],
+  [5, 6, 7, 8],
+  [6, 7, 8, 9],
+  [10, 11, 12],
+  [11, 12, 13],
+  [12, 13, 14],
+  [0, 1, 2],
+  [1, 2, 3],
+  [2, 3, 4],
+  [5, 6, 7],
+  [6, 7, 8],
+  [7, 8, 9],
+  [10, 11, 13],
+  [11, 12, 13, 14],
   [0, 1, 2, 3, 4],
   [5, 6, 7, 8, 9],
   [10, 11, 12, 13, 14],
@@ -34,16 +52,31 @@ const multipliers = {
   '0_1_2_3_4': 5,
   '5_6_7_8_9': 5,
   '10_11_12_13_14': 6,
+  '0_1_2_3': 2,
+  '1_2_3_4': 2,
+  '5_6_7_8': 2,
+  '6_7_8_9': 2,
+  '10_11_12': 2,
+  '11_12_13': 2,
+  '12_13_14': 2,
+  '0_1_2': 2,
+  '1_2_3': 2,
+  '2_3_4': 2,
+  '5_6_7': 2,
+  '6_7_8': 2,
+  '7_8_9': 2,
+  '10_11_13': 2,
+  '11_12_13_14': 4,
   '0_5_10': 2,
   '1_6_11': 2,
   '2_7_12': 2,
   '3_8_13': 2,
   '4_9_14': 2,
-  '0_6_12': 2,            // Множитель для [0, 6, 12]
-  '4_8_12': 2,            // Множитель для [4, 8, 12]
-  '4_5_9_10_14': 10,       // Множитель для Комбинации 1
-  '0_1_3_4_5': 8,          // Множитель для Комбинации 2
-  '2_6_8_10_12': 12,       // Множитель для Комбинации 3
+  '0_6_12': 2,
+  '4_8_12': 2,
+  '4_5_9_10_14': 10,
+  '0_1_3_4_5': 8,
+  '2_6_8_10_12': 12,
 };
 
 
@@ -93,8 +126,8 @@ function calculateOutcome(uniqueImgs) {
 
 function calculatePrizeAmount(combination) {
   const combinationKey = getCombinationKey(combination);
-  const multiplier = multipliers[combinationKey] || 1; // Используем множитель или значение по умолчанию
-  return multiplier * (betAmount || 1); // Умножаем на размер ставки, учитывая случай, когда betAmount неопределен или равен нулю
+  const multiplier = multipliers[combinationKey] || 1;
+  return multiplier * (betAmount || 1);
 }
 
 function getCombinationKey(combination) {
@@ -114,6 +147,12 @@ function addToHistory(entry, color) {
 
   // Update history in localStorage
   const history = JSON.parse(localStorage.getItem('history')) || [];
+
+  // Limit history to the last 22 entries
+  if (history.length >= 22) {
+    history.shift(); // Remove the first entry
+  }
+
   history.push(entry);
   localStorage.setItem('history', JSON.stringify(history));
 }
@@ -299,3 +338,107 @@ document.addEventListener('DOMContentLoaded', () => {
     betAmount = parseInt(savedLastBetAmount);
   }
 });
+
+//история
+
+const historyButton = document.querySelector('.history-button');
+const historyModal = document.querySelector('.history-modal');
+const closeHistoryBtn = document.querySelector('.close-history');
+
+historyButton.addEventListener('click', () => {
+  historyList.innerHTML = '';
+  const history = JSON.parse(localStorage.getItem('history')) || [];
+  history.forEach((entry) => {
+    const listItem = document.createElement('li');
+    listItem.textContent = entry;
+    historyList.appendChild(listItem);
+  });
+  historyModal.style.display = 'block';
+});
+
+closeHistoryBtn.addEventListener('click', () => {
+  historyModal.style.display = 'none';
+});
+
+//история
+
+
+//профиль
+const profileLink = document.querySelector('.profile-link');
+const profileModal = document.querySelector('.profile-modal');
+const closeProfileBtn = document.querySelector('.close-profile');
+const depositModalBtn = document.querySelector('.deposit-button');
+const profileBalance = document.querySelector('.profile-balance');
+const profileWins = document.querySelector('.profile-wins');
+const profileLosses = document.querySelector('.profile-losses');
+
+profileLink.addEventListener('click', (event) => {
+  event.preventDefault();
+  profileBalance.textContent = balance;
+  profileWins.textContent = localStorage.getItem('wins') || '0';
+  profileLosses.textContent = localStorage.getItem('losses') || '0';
+  profileModal.style.display = 'block';
+});
+
+closeProfileBtn.addEventListener('click', () => {
+  profileModal.style.display = 'none';
+});
+
+depositModalBtn.addEventListener('click', () => {
+  const depositAmount = parseInt(document.querySelector('.deposit-input').value);
+  if (!isNaN(depositAmount) && depositAmount > 0) {
+    balance += depositAmount;
+    balanceValue.textContent = balance;
+    updateBalanceLocalStorage();
+    profileBalance.textContent = balance;
+    document.querySelector('.deposit-input').value = '';
+  } else {
+    alert('впиши правильна всё пж');
+  }
+});
+
+
+//секрет
+
+function placeSecretButton() {
+  const maxX = window.innerWidth - 50;
+  const maxY = window.innerHeight - 50;
+
+  const randomX = Math.floor(Math.random() * maxX);
+  const randomY = Math.floor(Math.random() * maxY);
+
+  secretDepositButton.style.left = `${randomX}px`;
+  secretDepositButton.style.top = `${randomY}px`;
+  secretDepositButton.style.display = 'block';
+}
+
+placeSecretButton();
+
+secretDepositButton.addEventListener('click', () => {
+  const depositAmount = parseInt(prompt('Enter deposit amount:'));
+  if (!isNaN(depositAmount) && depositAmount > 0) {
+    balance += depositAmount;
+    balanceValue.textContent = balance;
+    updateBalanceLocalStorage();
+    profileBalance.textContent = balance;
+
+    // Добавление записи в историю
+    addToHistory(`Deposited: +${depositAmount}`, 'green');
+  } else {
+    alert('Please enter a valid deposit amount.');
+  }
+});
+
+// Перемещение секретной кнопки при изменении размера окна
+window.addEventListener('resize', placeSecretButton);
+
+
+
+// Добавьте следующий код, чтобы закрыть профиль, если кликнуто вне модального окна
+window.addEventListener('click', (event) => {
+  if (event.target === profileModal) {
+    profileModal.style.display = 'none';
+  }
+});
+
+//профиль
