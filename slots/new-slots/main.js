@@ -230,7 +230,7 @@ function spinHandler() {
     return;
   }
 
-  if (typeof(betAmount) != "string") {
+  if (isNaN(betAmount)) {
     showNotification("ты чё ишак?", 'red');
     return;
   }
