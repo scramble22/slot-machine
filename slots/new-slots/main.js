@@ -1,6 +1,6 @@
 const images = ['image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg', 'image5.jpg'];
 let balance = parseInt(localStorage.getItem('balance')) || 1000;
-let betAmount = parseInt(document.querySelector('.bet-input').value);
+
 const slotContainer = document.querySelector(".slots");
 const slotImgs = Array.from(slotContainer.querySelectorAll("img"));
 const spinButton = document.querySelector(".spin-button");
@@ -80,7 +80,7 @@ const multipliers = {
 };
 
 document.getElementById('bet-input').addEventListener('input', function() {
-  var maxLength = 10;
+  var maxLength = 5;
   if(this.value.length > maxLength) {
     this.value = this.value.substring(0, maxLength);
   }
@@ -235,10 +235,6 @@ function spinHandler() {
     showNotification("ты чё ишак? как ты 0 поставишь то", 'red');
     return;
   }
-  if (betAmount < 0) {
-    showNotification("ты чё ишак? как ты меньше 0 поставишь то", 'red');
-    return;
-  }
 
   if (isNaN(betAmount)) {
     showNotification("ты чё ишак?", 'red');
@@ -354,13 +350,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Восстановление последней ставки из localStorage при загрузке страницы
-document.addEventListener('DOMContentLoaded', () => {
+/*document.addEventListener('DOMContentLoaded', () => {
   const savedLastBetAmount = localStorage.getItem('lastBetAmount');
   if (savedLastBetAmount) {
     betInput.value = savedLastBetAmount;
     betAmount = parseInt(savedLastBetAmount);
   }
-});
+});*/
 
 //история
 
