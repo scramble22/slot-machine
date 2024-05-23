@@ -221,6 +221,14 @@ function spinHandler() {
     showNotification("Not enough balance to play.", 'red');
     return;
   }
+  if (betAmount === 0) {
+    showNotification("ты чё ишак? как ты 0 поставишь то", 'red');
+    return;
+  }
+  if (betAmount < 0) {
+    showNotification("ты чё ишак? как ты меньше 0 поставишь то", 'red');
+    return;
+  }
 
   // Сохраните текущую ставку в localStorage
   localStorage.setItem('lastBetAmount', betAmount);
