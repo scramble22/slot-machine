@@ -230,6 +230,11 @@ function spinHandler() {
     return;
   }
 
+  if (typeof(betAmount) != "string") {
+    showNotification("ты чё ишак?", 'red');
+    return;
+  }
+
   // Сохраните текущую ставку в localStorage
   localStorage.setItem('lastBetAmount', betAmount);
 
