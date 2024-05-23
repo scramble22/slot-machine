@@ -79,6 +79,16 @@ const multipliers = {
   '2_6_8_10_12': 12,
 };
 
+document.getElementById('bet-input').addEventListener('input', function() {
+  var maxLength = 10;
+  if(this.value.length > maxLength) {
+    this.value = this.value.substring(0, maxLength);
+  }
+});
+
+document.getElementById('bet-input').addEventListener('input', function() {
+  this.value = this.value.replace(/[^0-9]/g, '');
+});
 
 function calculateOutcome(uniqueImgs) {
   let totalPrizeAmount = 0;
