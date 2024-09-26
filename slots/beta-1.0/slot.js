@@ -33,24 +33,46 @@ function updateGrid() {
     }
 }
 
-// Проверка выигрышей
+// Проверка выигрышей и подсветка клеток
 function checkWin() {
-    // Пример простого правила: 3 одинаковых символа в любом ряду по горизонтали
     let winMultiplier = 0;
+    const winningCells = [];
 
-    grid.forEach(row => {
+    // Проверка по горизонтали
+    grid.forEach((row, rowIndex) => {
         if (row.every(symbol => symbol === row[0])) {
             winMultiplier += 1; // Увеличение коэффициента выигрыша
+            row.forEach((_, colIndex) => winningCells.push([rowIndex, colIndex])); // Добавление клеток
         }
     });
 
-    return winMultiplier;
+    // Проверка по вертикали
+    for (let j = 0; j < 5; j++) {
+        if (grid[0][j] === grid[1][j] && grid[1][j] === grid[2][j]) {
+            winMultiplier += 1; // Увеличение коэффициента выигрыша
+            for (let i = 0; i < 3; i++) {
+                winningCells.push([i, j]); // Добавление клеток
+            }
+        }
+    }
+
+    // Проверка по диагонали
+    if (grid[0][0] === grid[1][1] && grid[1][1] === grid[2][2]) {
+        winMultiplier += 1; // Диагональ слева направо
+        winningCells.push([0, 0], [1, 1], [2, 2]); // Добавление клеток
+    }
+    if (grid[0][4] === grid[1][3] && grid[1][3] === grid[2][2]) {
+        winMultiplier += 1; // Диагональ справа налево
+        winningCells.push([0, 4], [1, 3], [2, 2]); // Добавление клеток
+    }
+
+    return { winMultiplier, winningCells };
 }
 
 // Функция для обновления баланса
 function updateBalance(winMultiplier, bet) {
     if (winMultiplier > 0) {
-        const winnings = bet * winMultiplier;
+        const winnings = bet * (winMultiplier + 1); // Учитываем выигрыш
         balance += winnings;
         alert(`Вы выиграли ${winnings}!`);
     } else {
@@ -58,6 +80,14 @@ function updateBalance(winMultiplier, bet) {
         alert('Вы проиграли!');
     }
     balanceDisplay.textContent = `Баланс: ${balance}`;
+}
+
+// Подсветка выигрышных клеток
+function highlightWinners(winningCells) {
+    winningCells.forEach(([row, col]) => {
+        const cell = slotMachine.children[row * 5 + col];
+        cell.classList.add('winner'); // Подсветка клетки
+    });
 }
 
 // Крутить слот-машину
@@ -69,8 +99,14 @@ spinButton.addEventListener('click', () => {
         return;
     }
 
+    // Обновляем сетку и добавляем анимацию вращения
     updateGrid();
+    slotMachine.classList.add('spin'); // Запускаем анимацию
 
-    const winMultiplier = checkWin();
-    updateBalance(winMultiplier, bet);
+    setTimeout(() => {
+        const { winMultiplier, winningCells } = checkWin();
+        updateBalance(winMultiplier, bet);
+        highlightWinners(winningCells); // Подсветка выигрышных клеток
+        slotMachine.classList.remove('spin'); // Убираем анимацию
+    }, 500); // Задержка в 500мс перед объявлением результата
 });
