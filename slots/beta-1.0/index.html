@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Слот-Машина</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .slot-machine {
+            display: grid;
+            grid-template-columns: repeat(5, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .slot-cell {
+            border: 2px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+        }
+        #controls {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>казиняка</h1>
+    <div id="balance">Баланс: 1000</div>
+    <div id="slot-machine" class="slot-machine"></div>
+
+    <div id="controls">
+        <input type="number" id="bet-amount" placeholder="Ставка" min="1" value="10">
+        <button id="spin-button">Крутить</button>
+    </div>
+
+    <script src="slot.js"></script>
+</body>
+</html>
