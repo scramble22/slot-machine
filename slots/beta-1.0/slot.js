@@ -91,7 +91,7 @@ function highlightWinners(winningCells) {
 }
 
 // Крутить слот-машину
-spinButton.addEventListener('click', () => {
+function spinSlots() {
     const bet = parseInt(betAmountInput.value);
 
     if (bet > balance || bet <= 0) {
@@ -105,8 +105,21 @@ spinButton.addEventListener('click', () => {
 
     setTimeout(() => {
         const { winMultiplier, winningCells } = checkWin();
-        updateBalance(winMultiplier, bet);
         highlightWinners(winningCells); // Подсветка выигрышных клеток
-        slotMachine.classList.remove('spin'); // Убираем анимацию
-    }, 500); // Задержка в 500мс перед объявлением результата
+        setTimeout(() => { // Задержка перед обновлением баланса
+            updateBalance(winMultiplier, bet);
+            slotMachine.classList.remove('spin'); // Убираем анимацию
+        }, 300); // Задержка перед обновлением баланса
+    }, 500); // Задержка в 500мс для анимации
+}
+
+// Обработчик нажатия на кнопку
+spinButton.addEventListener('click', spinSlots);
+
+// Обработчик нажатия на пробел
+document.addEventListener('keydown', (event) => {
+    if (event.code === 'Space') {
+        event.preventDefault(); // Предотвращаем прокрутку страницы
+        spinSlots();
+    }
 });
